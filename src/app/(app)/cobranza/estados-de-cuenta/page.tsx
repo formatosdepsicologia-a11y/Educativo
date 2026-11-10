@@ -5,7 +5,7 @@ import { crearClienteNavegador } from "@/lib/supabase/client";
 import { pesos, fecha } from "@/lib/formato";
 
 type Fila = { cargo_id: string; descripcion: string; vence: string | null; monto: number; descuento: number; pagado: number; saldo: number; estado: string };
-const COLOR: Record<string, string> = { pagado: "bg-teal-100 text-teal-700", parcial: "bg-amber-100 text-amber-700", pendiente: "bg-slate-100 text-slate-600" };
+const COLOR: Record<string, string> = { pagado: "bg-green-100 text-green-700", parcial: "bg-amber-100 text-amber-700", pendiente: "bg-slate-100 text-slate-600" };
 
 export default function EstadosDeCuenta() {
   const [alumno, setAlumno] = useState<AlumnoBasico | null>(null);
@@ -26,7 +26,7 @@ export default function EstadosDeCuenta() {
         <div className="tarjeta">
           <div className="titulo-tarjeta flex justify-between">
             <span>{alumno.apellidos} {alumno.nombre} · {alumno.matricula}</span>
-            <button className="text-sm font-normal text-teal-700" onClick={() => window.print()}>Imprimir</button>
+            <button className="text-sm font-normal text-azul" onClick={() => window.print()}>Imprimir</button>
           </div>
           <div className="overflow-x-auto">
             <table className="tabla">

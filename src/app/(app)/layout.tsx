@@ -5,7 +5,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const supabase = await crearClienteServidor();
   const { data: { user } } = await supabase.auth.getUser();
   const { data: perfil } = await supabase.from("perfiles").select("nombre, rol, escuelas(nombre)").eq("id", user?.id ?? "").maybeSingle();
-  const escuela = (perfil?.escuelas as unknown as { nombre: string } | null)?.nombre ?? "Gestión Escolar";
+  const escuela = (perfil?.escuelas as unknown as { nombre: string } | null)?.nombre ?? "Colegio Bucareli";
 
   return (
     <div className="md:flex min-h-screen">

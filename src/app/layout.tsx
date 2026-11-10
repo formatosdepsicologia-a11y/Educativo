@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Gestión Escolar",
+  title: "Colegio Bucareli",
   description: "Cobranza, inventario y control escolar",
 };
 

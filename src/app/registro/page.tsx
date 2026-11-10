@@ -52,8 +52,8 @@ export default function Registro() {
             <button className="boton w-full" disabled={cargando}>{cargando ? "Creando..." : "Crear cuenta"}</button>
           </form>
         )}
-        {mensaje && <p className={`text-sm ${mensaje.ok ? "text-teal-700" : "text-red-600"}`}>{mensaje.texto}</p>}
-        <p className="text-sm text-center"><Link href="/login" className="text-teal-700">Volver a iniciar sesión</Link></p>
+        {mensaje && <p className={`text-sm ${mensaje.ok ? "text-azul" : "text-red-600"}`}>{mensaje.texto}</p>}
+        <p className="text-sm text-center"><Link href="/login" className="text-azul">Volver a iniciar sesión</Link></p>
       </div>
     </div>
   );

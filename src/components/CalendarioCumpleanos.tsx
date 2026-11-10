@@ -46,8 +46,8 @@ export default function CalendarioCumpleanos({ cumples, eventos }: { cumples: Cu
           const esHoy = d === hoy.getDate() && mes === hoy.getMonth() && anio === hoy.getFullYear();
           return (
             <button key={i} onClick={() => setDiaSel(d)}
-              className={`min-h-16 border-b border-r border-slate-100 p-1 text-left align-top ${esHoy ? "bg-teal-50" : ""} ${diaSel === d ? "ring-2 ring-teal-500 ring-inset" : ""}`}>
-              <div className={`text-xs ${esHoy ? "font-bold text-teal-700" : "text-slate-500"}`}>{d}</div>
+              className={`min-h-16 border-b border-r border-slate-100 p-1 text-left align-top ${esHoy ? "bg-sky-50" : ""} ${diaSel === d ? "ring-2 ring-azul ring-inset" : ""}`}>
+              <div className={`text-xs ${esHoy ? "font-bold text-azul" : "text-slate-500"}`}>{d}</div>
               {c.length > 0 && (
                 <div className="mt-1 inline-flex items-center gap-1 rounded bg-pink-100 px-1 text-[10px] text-pink-700">
                   <Cake size={10} />{c.length}

@@ -98,7 +98,7 @@ export default function PuntoDeCobro() {
               {guardando ? "Registrando..." : `Cobrar ${pesos(total)}`}
             </button>
           </div>
-          {mensaje && <p className={`px-4 pb-4 text-sm ${mensaje.tipo === "ok" ? "text-teal-700" : "text-red-600"}`}>{mensaje.texto}</p>}
+          {mensaje && <p className={`px-4 pb-4 text-sm ${mensaje.tipo === "ok" ? "text-azul" : "text-red-600"}`}>{mensaje.texto}</p>}
         </div>
       )}
     </div>

@@ -58,7 +58,7 @@ export default function Venta() {
         </div>
         <div className="tarjeta p-4 space-y-4 h-fit">
           <div className="font-semibold">Venta</div>
-          {alumno ? <div className="text-sm flex justify-between">{alumno.apellidos} {alumno.nombre}<button className="text-teal-700" onClick={() => setAlumno(null)}>Quitar</button></div>
+          {alumno ? <div className="text-sm flex justify-between">{alumno.apellidos} {alumno.nombre}<button className="text-azul" onClick={() => setAlumno(null)}>Quitar</button></div>
             : <BuscarAlumno onElegir={setAlumno} />}
           <ul className="space-y-2 text-sm">
             {items.map(({ p, cantidad }) => (
@@ -74,7 +74,7 @@ export default function Venta() {
             <option value="efectivo">Efectivo</option><option value="transferencia">Transferencia</option><option value="tarjeta">Tarjeta</option>
           </select>
           <button className="boton w-full" disabled={items.length === 0} onClick={vender}>Cobrar {pesos(total)}</button>
-          {mensaje && <p className={`text-sm ${mensaje.ok ? "text-teal-700" : "text-red-600"}`}>{mensaje.texto}</p>}
+          {mensaje && <p className={`text-sm ${mensaje.ok ? "text-azul" : "text-red-600"}`}>{mensaje.texto}</p>}
         </div>
       </div>
     </div>
