@@ -6,6 +6,8 @@
   --color-azul: #265ba9;
   --color-azul-oscuro: #1e4a8c;
   --color-rojo: #d32f36;
+  --color-celeste: #6badd6;
+  --color-celeste-claro: #e3f0f9;
 }
 
 body {
@@ -16,11 +18,11 @@ body {
 
 @layer components {
   .tarjeta { @apply bg-white rounded-xl border border-slate-200 shadow-sm; }
-  .titulo-tarjeta { @apply px-4 py-3 border-b border-slate-100 font-semibold text-slate-700; }
+  .titulo-tarjeta { @apply px-4 py-3 rounded-t-xl bg-celeste font-semibold text-white text-center; }
   .campo { @apply w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-azul; }
   .boton { @apply inline-flex items-center justify-center gap-2 rounded-lg bg-azul px-4 py-2 text-sm font-medium text-white hover:bg-azul-oscuro disabled:opacity-50; }
   .boton-sec { @apply inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm hover:bg-slate-50; }
   .tabla { @apply w-full text-sm; }
-  .tabla th { @apply text-left font-medium text-slate-500 px-3 py-2 border-b; }
+  .tabla th { @apply text-left font-medium text-marino bg-celeste-claro px-3 py-2 border-b; }
   .tabla td { @apply px-3 py-2 border-b border-slate-100; }
 }

@@ -31,12 +31,12 @@ export default function CalendarioCumpleanos({ cumples, eventos }: { cumples: Cu
 
   return (
     <div className="tarjeta">
-      <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
+      <div className="flex items-center justify-between px-4 py-3 rounded-t-xl bg-celeste text-white">
         <button className="boton-sec px-2" onClick={() => mover(-1)} aria-label="Mes anterior"><ChevronLeft size={18} /></button>
-        <div className="font-semibold">{MESES[mes]} {anio}</div>
+        <div className="font-semibold text-lg">{MESES[mes]} {anio}</div>
         <button className="boton-sec px-2" onClick={() => mover(1)} aria-label="Mes siguiente"><ChevronRight size={18} /></button>
       </div>
-      <div className="grid grid-cols-7 text-center text-xs text-slate-500 border-b">
+      <div className="grid grid-cols-7 text-center text-xs font-medium text-marino bg-celeste-claro border-b">
         {DIAS.map((d) => <div key={d} className="py-2">{d}</div>)}
       </div>
       <div className="grid grid-cols-7">
@@ -46,7 +46,7 @@ export default function CalendarioCumpleanos({ cumples, eventos }: { cumples: Cu
           const esHoy = d === hoy.getDate() && mes === hoy.getMonth() && anio === hoy.getFullYear();
           return (
             <button key={i} onClick={() => setDiaSel(d)}
-              className={`min-h-16 border-b border-r border-slate-100 p-1 text-left align-top ${esHoy ? "bg-sky-50" : ""} ${diaSel === d ? "ring-2 ring-azul ring-inset" : ""}`}>
+              className={`min-h-16 border-b border-r border-slate-100 p-1 text-left align-top ${esHoy ? "bg-celeste/30" : ""} ${diaSel === d ? "ring-2 ring-azul ring-inset" : ""}`}>
               <div className={`text-xs ${esHoy ? "font-bold text-azul" : "text-slate-500"}`}>{d}</div>
               {c.length > 0 && (
                 <div className="mt-1 inline-flex items-center gap-1 rounded bg-pink-100 px-1 text-[10px] text-pink-700">

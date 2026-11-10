@@ -36,7 +36,7 @@ export default function Sidebar({ nombreEscuela, usuario }: { nombreEscuela: str
                 const activo = i.ruta === "/" ? ruta === "/" : ruta.startsWith(i.ruta);
                 return (
                   <Link key={i.ruta} href={i.ruta} onClick={() => setAbierto(false)}
-                    className={`block px-4 py-2 text-sm ${activo ? "bg-azul text-white border-l-4 border-rojo" : "hover:bg-marino-claro"}`}>
+                    className={`block px-4 py-2 text-sm ${activo ? "bg-celeste text-white border-l-4 border-rojo" : "hover:bg-marino-claro"}`}>
                     {i.titulo}
                   </Link>
                 );
