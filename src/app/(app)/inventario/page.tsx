@@ -12,6 +12,7 @@ export default async function Inventario({ searchParams }: { searchParams: Promi
   if (almacen) q = q.eq("almacen_id", almacen);
   const { data: productos } = await q;
   const valor = (productos ?? []).reduce((s, p) => s + Number(p.precio) * p.existencia, 0);
+  const piezas = (productos ?? []).reduce((s, p) => s + p.existencia, 0);
 
   return (
     <div className="space-y-6 max-w-6xl">
@@ -25,14 +26,14 @@ export default async function Inventario({ searchParams }: { searchParams: Promi
       <div className="tarjeta overflow-x-auto">
         <div className="titulo-tarjeta">{(almacenes ?? []).find((a) => a.id === almacen)?.nombre ?? "Todos los almacenes"} · Valor: {pesos(valor)}</div>
         <table className="tabla">
-          <thead><tr><th>Producto</th><th>Talla</th><th className="text-right">Precio</th><th className="text-right">Existencia</th><th className="text-right">Mínimo</th></tr></thead>
+          <thead><tr><th>No.</th><th>Producto</th><th>Talla</th><th className="text-right">Precio</th><th className="text-right">Existencia</th><th className="text-right">Mínimo</th></tr></thead>
           <tbody>
-            {(productos ?? []).length === 0 && <tr><td colSpan={5} className="text-slate-500">Sin productos.</td></tr>}
-            {(productos ?? []).map((p) => {
+            {(productos ?? []).length === 0 && <tr><td colSpan={6} className="text-slate-500">Sin productos.</td></tr>}
+            {(productos ?? []).map((p, i) => {
               const bajo = p.existencia <= p.existencia_minima;
               return (
                 <tr key={p.id}>
-                  <td>{p.nombre}</td><td>{p.talla ?? "—"}</td>
+                  <td className="text-slate-500">{i + 1}</td><td>{p.nombre}</td><td>{p.talla ?? "—"}</td>
                   <td className="text-right">{pesos(p.precio)}</td>
                   <td className={`text-right font-medium ${bajo ? "text-amber-600" : ""}`}>{p.existencia}{bajo && " · surtir"}</td>
                   <td className="text-right text-slate-500">{p.existencia_minima}</td>
@@ -40,6 +41,7 @@ export default async function Inventario({ searchParams }: { searchParams: Promi
               );
             })}
           </tbody>
+          <tfoot><tr className="font-semibold bg-celeste-claro"><td colSpan={4} className="px-3 py-2 text-right">Total de piezas</td><td className="px-3 py-2 text-right">{piezas}</td><td /></tr></tfoot>
         </table>
       </div>
     </div>
