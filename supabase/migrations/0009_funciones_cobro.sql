@@ -13,7 +13,7 @@ begin
       when estado = 'cancelado' then 'cancelado'
       when v_pagado >= v_neto then 'pagado'
       when v_pagado > 0 then 'parcial'
-      else 'pendiente' end
+      else 'pendiente' end::estado_cargo
    where id = p_cargo;
 end $$;
 
