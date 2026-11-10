@@ -47,7 +47,7 @@ create table movimientos_inventario (
 );
 
 -- Mantener existencia al registrar movimientos
-create or replace function aplicar_movimiento() returns trigger language plpgsql as $$
+create or replace function aplicar_movimiento() returns trigger language plpgsql set search_path = public as $$
 begin
   update productos set existencia = existencia + new.cantidad where id = new.producto_id;
   return new;

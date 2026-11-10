@@ -2,7 +2,7 @@
 
 -- Recalcula el estado de un cargo según lo pagado
 create or replace function actualizar_estado_cargo(p_cargo uuid) returns void
-language plpgsql as $$
+language plpgsql set search_path = public as $$
 declare v_pagado numeric; v_neto numeric;
 begin
   select coalesce(sum(p.monto),0) into v_pagado
@@ -22,7 +22,7 @@ create or replace function registrar_cobro(
   p_alumno uuid, p_partidas jsonb, p_forma forma_pago,
   p_referencia text default null, p_padre uuid default null, p_corte uuid default null
 ) returns uuid
-language plpgsql security invoker as $$
+language plpgsql security invoker set search_path = public as $$
 declare v_escuela uuid := mi_escuela(); v_recibo uuid; v_total numeric := 0; v_item jsonb;
 begin
   if not es_admin() then raise exception 'Sin permiso para cobrar'; end if;
@@ -44,7 +44,7 @@ end $$;
 create or replace function registrar_venta(
   p_alumno uuid, p_partidas jsonb, p_forma forma_pago, p_padre uuid default null, p_corte uuid default null
 ) returns uuid
-language plpgsql security invoker as $$
+language plpgsql security invoker set search_path = public as $$
 declare v_escuela uuid := mi_escuela(); v_venta uuid; v_recibo uuid; v_total numeric := 0;
         v_item jsonb; v_prod productos%rowtype; v_cant int;
 begin
@@ -69,7 +69,7 @@ end $$;
 
 -- Cancelar recibo: revierte estado de cargos y regresa inventario
 create or replace function cancelar_recibo(p_recibo uuid, p_motivo text) returns void
-language plpgsql security invoker as $$
+language plpgsql security invoker set search_path = public as $$
 declare v_pago record; v_part record; v_venta uuid;
 begin
   if not es_admin() then raise exception 'Sin permiso para cancelar'; end if;
