@@ -156,17 +156,6 @@ create table asistencias (
   unique (alumno_id, fecha)
 );
 
-create table calificaciones (
-  id uuid primary key default gen_random_uuid(),
-  escuela_id uuid not null references escuelas(id) on delete cascade,
-  alumno_id uuid not null references alumnos(id) on delete cascade,
-  asignacion_id uuid not null references asignaciones(id) on delete cascade,
-  parcial int not null,
-  valor numeric(5,2) not null check (valor >= 0 and valor <= 10),
-  observaciones text,
-  unique (alumno_id, asignacion_id, parcial)
-);
-
 -- Seguridad: cada usuario solo ve los datos de su escuela
 create or replace function mi_escuela() returns uuid
 language sql stable security definer set search_path = public as $$
@@ -182,7 +171,7 @@ do $$
 declare t text;
 begin
   foreach t in array array['periodos','niveles','grados','grupos','materias','alumnos','inscripciones',
-    'padres','profesores','asignaciones','eventos','avisos','asistencias','calificaciones']
+    'padres','profesores','asignaciones','eventos','avisos','asistencias']
   loop
     execute format('alter table %I enable row level security', t);
     execute format('create policy "leer_misma_escuela" on %I for select using (escuela_id = mi_escuela())', t);
@@ -199,9 +188,8 @@ alter table alumno_padre enable row level security;
 create policy "ver_alumno_padre" on alumno_padre for select using (exists (select 1 from alumnos a where a.id = alumno_id and a.escuela_id = mi_escuela()));
 create policy "admin_alumno_padre" on alumno_padre for all using (es_admin() and exists (select 1 from alumnos a where a.id = alumno_id and a.escuela_id = mi_escuela()));
 
--- Profesores pueden registrar asistencia y calificaciones
+-- Profesores pueden registrar asistencia
 create policy "profesor_asistencia" on asistencias for insert with check (escuela_id = mi_escuela() and exists(select 1 from perfiles where id = auth.uid() and rol = 'profesor'));
-create policy "profesor_calificaciones" on calificaciones for all using (escuela_id = mi_escuela() and exists(select 1 from asignaciones s join profesores p on p.id = s.profesor_id where s.id = asignacion_id and p.perfil_id = auth.uid()));
 
 -- Cumpleaños del mes (alumnos, padres y profesores) para el calendario
 create or replace view cumpleanos with (security_invoker = true) as
