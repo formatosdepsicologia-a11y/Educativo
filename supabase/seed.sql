@@ -13,3 +13,6 @@ from n join (values
   ('Primaria','1° Primaria',1),('Primaria','2° Primaria',2),('Primaria','3° Primaria',3),
   ('Primaria','4° Primaria',4),('Primaria','5° Primaria',5),('Primaria','6° Primaria',6)
 ) g(nivel,nombre,orden) on g.nivel = n.nombre;
+
+insert into almacenes (escuela_id, nombre)
+select id, a from escuelas, (values ('Uniformes'),('Libretas y papelería'),('Otros cobros')) v(a);
