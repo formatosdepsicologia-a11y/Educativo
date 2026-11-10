@@ -1,6 +1,7 @@
 import { crearClienteServidor } from "@/lib/supabase/server";
 import Link from "next/link";
 import { pesos } from "@/lib/formato";
+import BotonImprimir from "@/components/BotonImprimir";
 
 export default async function Inventario({ searchParams }: { searchParams: Promise<{ almacen?: string }> }) {
   const { almacen = "" } = await searchParams;
@@ -14,15 +15,15 @@ export default async function Inventario({ searchParams }: { searchParams: Promi
 
   return (
     <div className="space-y-6 max-w-6xl">
-      <div className="flex items-center justify-between"><h1 className="text-2xl font-semibold">Productos y existencias</h1><Link href="/inventario/nuevo" className="boton">Nuevo producto</Link></div>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex items-center justify-between"><h1 className="text-2xl font-semibold">Productos y existencias</h1><div className="flex gap-2 print:hidden"><BotonImprimir /><Link href="/inventario/nuevo" className="boton">Nuevo producto</Link></div></div>
+      <div className="flex flex-wrap gap-2 print:hidden">
         <Link href="/inventario" className={almacen ? "boton-sec" : "boton"}>Todos</Link>
         {(almacenes ?? []).map((a) => (
           <Link key={a.id} href={`/inventario?almacen=${a.id}`} className={almacen === a.id ? "boton" : "boton-sec"}>{a.nombre}</Link>
         ))}
       </div>
       <div className="tarjeta overflow-x-auto">
-        <div className="titulo-tarjeta">Valor del inventario: {pesos(valor)}</div>
+        <div className="titulo-tarjeta">{(almacenes ?? []).find((a) => a.id === almacen)?.nombre ?? "Todos los almacenes"} · Valor: {pesos(valor)}</div>
         <table className="tabla">
           <thead><tr><th>Producto</th><th>Talla</th><th className="text-right">Precio</th><th className="text-right">Existencia</th><th className="text-right">Mínimo</th></tr></thead>
           <tbody>

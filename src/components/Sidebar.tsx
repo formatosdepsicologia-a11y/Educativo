@@ -12,14 +12,14 @@ export default function Sidebar({ nombreEscuela, usuario }: { nombreEscuela: str
 
   return (
     <>
-      <header className="md:hidden sticky top-0 z-30 flex items-center justify-between bg-white border-b px-4 h-14">
+      <header className="print:hidden md:hidden sticky top-0 z-30 flex items-center justify-between bg-white border-b px-4 h-14">
         <button onClick={() => setAbierto(true)} aria-label="Abrir menú"><Menu /></button>
         <Image src="/logo.png" alt={nombreEscuela} width={800} height={483} className="h-9 w-auto" />
         <span className="w-6" />
       </header>
       {abierto && <div className="fixed inset-0 z-40 bg-black/40 md:hidden" onClick={() => setAbierto(false)} />}
       <aside
-        className={`fixed z-50 inset-y-0 left-0 w-64 bg-marino text-slate-200 flex flex-col transition-transform md:translate-x-0 md:sticky md:top-0 md:h-screen ${abierto ? "translate-x-0" : "-translate-x-full"}`}
+        className={`print:hidden fixed z-50 inset-y-0 left-0 w-64 bg-marino text-slate-200 flex flex-col transition-transform md:translate-x-0 md:sticky md:top-0 md:h-screen ${abierto ? "translate-x-0" : "-translate-x-full"}`}
       >
         <div className="relative bg-white px-4 py-3 border-b-4 border-rojo">
           <Image src="/logo.png" alt={nombreEscuela} width={800} height={483} className="h-20 w-auto mx-auto" priority />
