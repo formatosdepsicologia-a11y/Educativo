@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -11,11 +11,7 @@ export default function Login() {
   const [error, setError] = useState("");
   const [cargando, setCargando] = useState(false);
   const router = useRouter();
-  const [mostrarRegistro, setMostrarRegistro] = useState(false);
 
-  useEffect(() => {
-    crearClienteNavegador().rpc("hay_administrador").then(({ data }) => setMostrarRegistro(data === false));
-  }, []);
 
   async function entrar(e: React.FormEvent) {
     e.preventDefault();
@@ -27,8 +23,8 @@ export default function Login() {
       setCargando(false);
       return setError(error.message.includes("not confirmed") ? "Confirma tu correo antes de entrar." : "Correo o contraseña incorrectos");
     }
-    // Si aún no hay administrador, quien entra primero queda como administrador
-    await supabase.rpc("crear_primer_admin", { p_nombre: data.user?.user_metadata?.nombre ?? "Administrador" });
+    // Primer usuario queda como administrador; si tiene invitación, queda con el rol que le asignaron
+    await supabase.rpc("activar_cuenta", { p_nombre: data.user?.user_metadata?.nombre ?? "Administrador" });
     setCargando(false);
     router.replace("/");
     router.refresh();
@@ -43,9 +39,7 @@ export default function Login() {
         <input className="campo" type="password" placeholder="Contraseña" value={clave} onChange={(e) => setClave(e.target.value)} required />
         {error && <p className="text-sm text-red-600">{error}</p>}
         <button className="boton w-full" disabled={cargando}>{cargando ? "Entrando..." : "Entrar"}</button>
-        {mostrarRegistro && (
-          <p className="text-sm text-center">¿Primera vez? <Link href="/registro" className="text-azul font-medium">Crear cuenta</Link></p>
-        )}
+        <p className="text-sm text-center">¿Primera vez? <Link href="/registro" className="text-azul font-medium">Crear cuenta</Link></p>
       </form>
     </div>
   );

@@ -1,7 +1,15 @@
 import type { LucideIcon } from "lucide-react";
-import { ArrowLeftRight, Briefcase, Building2, Calculator, CircleCheck, CirclePlus, ClipboardList, FileCheck, FileText, House, Landmark, Monitor, NotebookPen, Package, Percent, Receipt, Send, ShoppingCart, Star, User, UserCog, UserPlus, Users } from "lucide-react";
+import { ArrowLeftRight, Briefcase, Building2, Calculator, CircleCheck, CirclePlus, ClipboardList, FileCheck, FileText, House, Landmark, Monitor, NotebookPen, Package, Percent, Receipt, Send, ShoppingCart, Star, Trash2, User, UserCog, UserPlus, Users } from "lucide-react";
 
-export type ItemMenu = { titulo: string; ruta: string; icono: LucideIcon };
+export type ItemMenu = { titulo: string; ruta: string; icono: LucideIcon; soloAdmin?: boolean };
+
+export const ROLES: Record<string, string> = {
+  admin: "Administrador",
+  control_escolar: "Control escolar",
+  profesor: "Profesor",
+  padre: "Padre de familia",
+  alumno: "Alumno",
+};
 export type GrupoMenu = { titulo: string; items: ItemMenu[] };
 
 export const menu: GrupoMenu[] = [
@@ -11,7 +19,8 @@ export const menu: GrupoMenu[] = [
     items: [
       { titulo: "Punto de cobro", ruta: "/cobranza/punto-de-cobro", icono: Monitor },
       { titulo: "Estados de cuenta", ruta: "/cobranza/estados-de-cuenta", icono: FileText },
-      { titulo: "Recibos y cancelaciones", ruta: "/cobranza/recibos", icono: Receipt },
+      { titulo: "Recibos", ruta: "/cobranza/recibos", icono: Receipt },
+      { titulo: "Cancelar recibos", ruta: "/cobranza/cancelar-recibo", icono: Trash2, soloAdmin: true },
       { titulo: "Corte de caja", ruta: "/cobranza/corte-de-caja", icono: Calculator },
       { titulo: "Facturación", ruta: "/cobranza/facturacion", icono: FileCheck },
       { titulo: "Colegiaturas y planes", ruta: "/cobranza/colegiaturas", icono: Star },
@@ -49,8 +58,8 @@ export const menu: GrupoMenu[] = [
   {
     titulo: "Configuración",
     items: [
-      { titulo: "Usuarios", ruta: "/configuracion/usuarios", icono: UserCog },
-      { titulo: "Empresas y timbres", ruta: "/configuracion/empresas", icono: Building2 },
+      { titulo: "Usuarios", ruta: "/configuracion/usuarios", icono: UserCog, soloAdmin: true },
+      { titulo: "Empresas y timbres", ruta: "/configuracion/empresas", icono: Building2, soloAdmin: true },
     ],
   },
 ];

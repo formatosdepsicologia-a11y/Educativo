@@ -1,4 +1,5 @@
 import Sidebar from "@/components/Sidebar";
+import { ROLES } from "@/lib/nav";
 import { crearClienteServidor } from "@/lib/supabase/server";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
@@ -9,8 +10,10 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
   return (
     <div className="md:flex min-h-screen">
-      <Sidebar nombreEscuela={escuela} usuario={perfil ? `${perfil.nombre} · ${perfil.rol}` : user?.email ?? ""} />
-      <main className="flex-1 min-w-0 p-4 md:p-6">{children}</main>
+      <Sidebar nombreEscuela={escuela} usuario={perfil ? `${perfil.nombre} · ${ROLES[perfil.rol] ?? perfil.rol}` : user?.email ?? ""} esAdmin={perfil?.rol === "admin"} />
+      <main className="flex-1 min-w-0 p-4 md:p-6">
+        {perfil ? children : <p className="text-slate-600">Tu cuenta todavía no tiene acceso. Pide al administrador que te dé de alta en Usuarios.</p>}
+      </main>
     </div>
   );
 }

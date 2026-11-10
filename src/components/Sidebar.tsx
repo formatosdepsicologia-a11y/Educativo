@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { menu } from "@/lib/nav";
 
-export default function Sidebar({ nombreEscuela, usuario }: { nombreEscuela: string; usuario: string }) {
+export default function Sidebar({ nombreEscuela, usuario, esAdmin }: { nombreEscuela: string; usuario: string; esAdmin: boolean }) {
   const ruta = usePathname();
   const [abierto, setAbierto] = useState(false);
 
@@ -29,7 +29,7 @@ export default function Sidebar({ nombreEscuela, usuario }: { nombreEscuela: str
           <div className="text-sm font-medium text-white truncate">{usuario}</div>
         </div>
         <nav className="flex-1 overflow-y-auto py-3">
-          {menu.map((g) => (
+          {menu.map((g) => ({ ...g, items: g.items.filter((i) => esAdmin || !i.soloAdmin) })).filter((g) => g.items.length).map((g) => (
             <div key={g.titulo} className="mb-3">
               <div className="px-4 py-1 text-[11px] uppercase tracking-wider text-slate-400">{g.titulo}</div>
               {g.items.map((i) => {
