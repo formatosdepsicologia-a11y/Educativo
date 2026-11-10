@@ -33,11 +33,12 @@ export default function Sidebar({ nombreEscuela, usuario }: { nombreEscuela: str
             <div key={g.titulo} className="mb-3">
               <div className="px-4 py-1 text-[11px] uppercase tracking-wider text-slate-400">{g.titulo}</div>
               {g.items.map((i) => {
-                const activo = i.ruta === "/" ? ruta === "/" : ruta.startsWith(i.ruta);
+                const activo = i.ruta === "/" ? ruta === "/" : ruta === i.ruta || ruta.startsWith(i.ruta + "/") && !g.items.some((o) => o.ruta !== i.ruta && o.ruta.startsWith(i.ruta) && ruta.startsWith(o.ruta));
+                const Icono = i.icono;
                 return (
                   <Link key={i.ruta} href={i.ruta} onClick={() => setAbierto(false)}
-                    className={`block px-4 py-2 text-sm ${activo ? "bg-celeste text-white border-l-4 border-rojo" : "hover:bg-marino-claro"}`}>
-                    {i.titulo}
+                    className={`flex items-center gap-3 px-4 py-2.5 text-sm border-b border-white/5 ${activo ? "bg-celeste text-white border-l-4 border-rojo" : "hover:bg-marino-claro"}`}>
+                    <Icono size={18} className="shrink-0 text-white" />{i.titulo}
                   </Link>
                 );
               })}
