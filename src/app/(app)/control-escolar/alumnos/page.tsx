@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { crearClienteServidor } from "@/lib/supabase/server";
 
 type Params = Promise<{ q?: string; nivel?: string }>;
@@ -22,7 +23,7 @@ export default async function Alumnos({ searchParams }: { searchParams: Params }
 
   return (
     <div className="space-y-6 max-w-6xl">
-      <h1 className="text-2xl font-semibold">Alumnos</h1>
+      <div className="flex items-center justify-between"><h1 className="text-2xl font-semibold">Alumnos</h1><Link href="/control-escolar/alumnos/nuevo" className="boton">Nuevo alumno</Link></div>
       <form className="tarjeta p-4 grid sm:grid-cols-[1fr_200px_auto] gap-2">
         <input name="q" defaultValue={q} className="campo" placeholder="Nombre, apellidos o matrícula" />
         <select name="nivel" defaultValue={nivel} className="campo">

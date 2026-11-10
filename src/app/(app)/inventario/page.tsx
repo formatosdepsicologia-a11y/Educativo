@@ -14,7 +14,7 @@ export default async function Inventario({ searchParams }: { searchParams: Promi
 
   return (
     <div className="space-y-6 max-w-6xl">
-      <h1 className="text-2xl font-semibold">Productos y existencias</h1>
+      <div className="flex items-center justify-between"><h1 className="text-2xl font-semibold">Productos y existencias</h1><Link href="/inventario/nuevo" className="boton">Nuevo producto</Link></div>
       <div className="flex flex-wrap gap-2">
         <Link href="/inventario" className={almacen ? "boton-sec" : "boton"}>Todos</Link>
         {(almacenes ?? []).map((a) => (
