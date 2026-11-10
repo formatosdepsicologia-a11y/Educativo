@@ -1,9 +1,9 @@
 -- Cancelar recibo con opción de cancelar también su factura.
 -- Facturas sin timbrar se cancelan de inmediato; las timbradas quedan marcadas para cancelarse ante el SAT vía el PAC.
-alter table facturas add column cancelacion_solicitada boolean not null default false;
+-- Se conserva la versión anterior de 2 parámetros; la app usa esta de 3.
+alter table facturas add column if not exists cancelacion_solicitada boolean not null default false;
 
-drop function if exists cancelar_recibo(uuid, text);
-create or replace function cancelar_recibo(p_recibo uuid, p_motivo text, p_cancelar_factura boolean default false) returns void
+create or replace function cancelar_recibo(p_recibo uuid, p_motivo text, p_cancelar_factura boolean) returns void
 language plpgsql security invoker set search_path = public as $$
 declare v_pago record; v_part record; v_venta uuid;
 begin
